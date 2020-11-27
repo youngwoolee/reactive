@@ -1,0 +1,37 @@
+plugins {
+    id "java"
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+subprojects {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compileOnly("org.projectlombok:lombok")
+        testCompileOnly("org.projectlombok:lombok")
+
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+    }
+    test {
+        useJUnitPlatform()
+    }
+}
